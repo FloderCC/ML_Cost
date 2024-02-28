@@ -1,0 +1,5 @@
+myenv/
+.idea/
+src/__pycache__/
+src/utils/__pycache__/
+**/*.csv
