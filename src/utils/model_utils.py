@@ -1,7 +1,3 @@
-import random
-
-import numpy as np
-import tensorflow as tf
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier, \
     ExtraTreesClassifier, BaggingClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
@@ -13,14 +9,14 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC, NuSVC, LinearSVC
 from sklearn.tree import DecisionTreeClassifier, ExtraTreeClassifier
 
-# from src.utils.dnn_models import DNNClassifier1, DNNClassifier2
+import random
+from src.utils.dnn_models import *
 
 
 def reset_setup(seed: int):
     random.seed(seed)
     np.random.seed(seed)
     tf.random.set_seed(seed)
-    tf.config.set_visible_devices([], 'GPU')
 
 
 def create_models(global_random_seed):
@@ -66,6 +62,8 @@ def create_models(global_random_seed):
         'MLP': MLPClassifier(random_state=global_random_seed),
 
         # DNN
-        # 'DNN1v0': DNNClassifier1(),
-        # 'DNN2v0': DNNClassifier2(),
+        'DNN1': DNNClassifier1(),
+        'DNN2': DNNClassifier2(),
+        'DNN3': DNNClassifier3(),
+        'DNN4': DNNClassifier4(),
     }

@@ -9,28 +9,26 @@ from src.utils.model_utils import reset_setup, create_models
 from src.utils.resources_monitor import monitor_tic, monitor_toc
 from src.utils.dataset_utils import *
 
-# keras.utils.disable_interactive_logging()
-
 dataset_setup_list = [
     ['KPI-KQI', [], 'Service'],  # 165 x 14
     ['UNAC', ['file'], 'output'],  # 389 x 23
     ['IoT-APD', ['second'], 'label'],  # 10845 x 17
+    ['DeepSlice', ['no'], 'slice Type'],  # 10845 x 17
     ['QOE_prediction_ICC2018', ['RebufferingRatio', 'AvgVideoBitRate', 'AvgVideoQualityVariation'], 'StallLabel'],  # 69129 x 51
     ['RT_IOT2022', ['no'], 'Attack_type'],  # 123117, 85
     ['5G_Slicing', [], 'Slice Type (Output)'],  # 466739, 9
-
     ['IoT-DNL', [], 'normality'],  # 477426 x 14
     ['X-IIoTID', ['Date', 'Timestamp', 'class1', 'class2'], 'class3'],  # 820834 x 68
-    ['IoTID20', ['Flow_ID', 'Cat', 'Sub_Cat'], 'Label'],  # 625783 x 86
     ['DDOS-ANL', [], 'PKT_CLASS'],  # 2160668 x 28
 
     # backup
-    # ['BoTNeTIoT-L01', ['Device_Name', 'Attack', 'Attack_subType'], 'label'],  # 7062606 x 27 SIGKILL
-    # Unknown: https://www.kaggle.com/datasets/puspakmeher/networkslicing
+    # ['IoTID20', ['Flow_ID', 'Cat', 'Sub_Cat'], 'Label'],  # 625783 x 86 Anomaly error while replacing empty values
+    # ['BoTNeTIoT-L01', ['Device_Name', 'Attack', 'Attack_subType'], 'label'],  # 7062606 x 27 SIGKILL in the Toshiba laptop
 
 ]
 
-seeds = [5, 7, 42, 11]
+# seeds = [5, 7, 42]
+seeds = [42]
 
 # count
 setup_number = 1

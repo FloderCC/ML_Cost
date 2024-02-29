@@ -1,10 +1,14 @@
+import keras
 import numpy as np
 from keras.src.layers import Flatten, Dropout
 from keras.src.optimizers import Adam
 from scikeras.wrappers import KerasClassifier
 from keras.layers import Dense
 from keras.models import Sequential
+import tensorflow as tf
 
+tf.config.set_visible_devices([], 'GPU')
+keras.utils.disable_interactive_logging()
 
 # Base Classifier
 class DNNClassifier(KerasClassifier):
@@ -105,5 +109,32 @@ class DNNClassifier3(DNNClassifier):
         # Add the desired parameters for fit
         kwargs['epochs'] = 200
         kwargs['batch_size'] = 1024
+
+        return super().fit(X, y, **kwargs)
+
+
+# DNN model 4
+# Paper: https://ieeexplore.ieee.org/document/8993066
+# Source: https://github.com/adtmv7/DeepSlice/blob/master/Source/DeepSlice.py
+# Dataset: DeepSlice
+class DNNClassifier4(DNNClassifier):
+    def build(self, num_features, num_classes):
+        # Creating a Keras Model
+        model = Sequential()
+        # model.add(Flatten(input_shape=(num_features,)))
+        model.add(Dense(8, input_dim=num_features, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(4, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(3, kernel_initializer='normal', activation='tanh'))
+        model.add(Dense(num_classes, kernel_initializer='normal', activation='softmax'))
+        # Compile the Keras model
+        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+        # creating the model
+        super().__init__(build_fn=model)
+
+    def fit(self, X, y, **kwargs):
+        # Add the desired parameters for fit
+        kwargs['epochs'] = 16
+        kwargs['batch_size'] = 128
 
         return super().fit(X, y, **kwargs)
